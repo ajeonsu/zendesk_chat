@@ -1,0 +1,97 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, #f7f4ef 0%, #ece8e1 45%, #e3ded6 100%);
+  color: #1c1b19;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem clamp(1.25rem, 4vw, 3rem);
+  border-bottom: 1px solid rgba(28, 27, 25, 0.08);
+}
+
+.brand {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.brand-mark {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #2a2826, #4a4540);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5c574f;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.site-link {
+  color: #1c1b19;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.35);
+  padding-bottom: 2px;
+}
+
+.site-link:hover {
+  border-color: #1c1b19;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem clamp(1.25rem, 4vw, 3rem);
+  max-width: 40rem;
+}
+
+.notice {
+  margin: 0;
+  line-height: 1.6;
+  color: #3d3a35;
+}
+
+.notice-error {
+  color: #8a3b2c;
+}
+
+.notice code {
+  font-size: 0.9em;
+}
+
+.open-chat {
+  margin-top: 1.25rem;
+  font: inherit;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: #1c1b19;
+  color: #fff;
+}
+
+.open-chat:hover {
+  background: #33312d;
+}
+
+.main ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
