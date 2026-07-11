@@ -2,6 +2,15 @@
 
 | Path | Purpose |
 |------|---------|
+| [ZENDESK-AI-AGENT-ARCHITECTURE-REPORT.md](./ZENDESK-AI-AGENT-ARCHITECTURE-REPORT.md) | Technical report: how Zendesk AI agent works (RAG, flows) for AI engineers |
+| [zendesk-ai-architecture-report.html](./zendesk-ai-architecture-report.html) | Architecture report — scrollable whitepaper UI |
+| [zendesk-ai-pricing-and-engine-report.html](./zendesk-ai-pricing-and-engine-report.html) | **Part 1** — 2026 Zendesk pricing + RAG engine (12 slides) |
+| [index.html](./index.html) | **Part 2** — build feasibility, stack, cloud, ask (18 slides; after Part 1) |
+| [PROPOSAL-BPO-AI-CSR-PLATFORM.md](./PROPOSAL-BPO-AI-CSR-PLATFORM.md) | BPO proposal: owned AI CSR platform vs Zendesk (pricing, architecture) |
+| [owned-ai-csr-n8n-architecture.html](./owned-ai-csr-n8n-architecture.html) | **n8n setup deck** — platform topology, WF-A ingest / WF-B RAG / WF-C assist flowcharts (13 slides) |
+| [bpo-ai-csr-proposal-presentation.html](./bpo-ai-csr-proposal-presentation.html) | **Proposal deck** — how owned platform works + cost vs Zendesk (19 slides; open after `zendesk-ai-agent-how-it-works.html`) |
+| [zendesk-ai-agent-how-it-works.html](./zendesk-ai-agent-how-it-works.html) | Zendesk-only technical deck — architecture, Copilot, pricing |
+| [zendesk-ai-agent-llm-architecture-inside-out.html](./reports/zendesk-ai-agent-llm-architecture-inside-out.html) | **LLM vendors** — 17 slides, Zendesk-disclosed providers + roles (cited per slide) |
 | [ZENDESK-AI-CSR-SETUP.md](./ZENDESK-AI-CSR-SETUP.md) | Steps, checklist, and items to collect from your boss |
 | [schenley-chat-ui/](./schenley-chat-ui/) | Vite test chat page (Zendesk Web Widget) |
 
@@ -15,3 +24,13 @@ Quick start: read the setup guide, publish Help Center articles, configure the A
 3. **Environment variables:** `VITE_ZENDESK_WIDGET_KEY` = your Messaging Web Widget key.
 4. Redeploy after env changes.
 5. In Zendesk Messaging, add your Vercel URL (e.g. `https://zendesk-chat-ruby.vercel.app`) to **allowed domains**.
+
+### OAuth callback (optional — custom bot → Zendesk tickets)
+
+After deploy, Zendesk OAuth Redirect URI:
+
+```text
+https://zendesk-chat-ruby.vercel.app/api/zendesk/callback
+```
+
+See `schenley-chat-ui/README.md` and `scripts/zendesk_oauth_exchange.py`.

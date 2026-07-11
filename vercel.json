@@ -2,5 +2,8 @@
   "installCommand": "npm install --prefix schenley-chat-ui",
   "buildCommand": "npm run build --prefix schenley-chat-ui",
   "outputDirectory": "schenley-chat-ui/dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
