@@ -21,16 +21,10 @@ Quick start: read the setup guide, publish Help Center articles, configure the A
 1. Import [github.com/ajeonsu/zendesk_chat](https://github.com/ajeonsu/zendesk_chat).
 2. Leave **Root Directory** empty (repo root). Root `vercel.json` builds `schenley-chat-ui/`.
    - Or set **Root Directory** to `schenley-chat-ui` and use the `vercel.json` inside that folder only (not both).
-3. **Environment variables:** `VITE_ZENDESK_WIDGET_KEY` = your Messaging Web Widget key.
+3. **Environment variables (server):**  
+   `ZENDESK_SUBDOMAIN`, `ZENDESK_OAUTH_CLIENT_ID`, `ZENDESK_OAUTH_CLIENT_SECRET`, `ZENDESK_OAUTH_REFRESH_TOKEN`, `ZENDESK_OAUTH_REDIRECT_URI`
 4. Redeploy after env changes.
-5. In Zendesk Messaging, add your Vercel URL (e.g. `https://zendesk-chat-ruby.vercel.app`) to **allowed domains**.
+5. Open the site → use the **owned chat** → **Talk to a human** creates a Zendesk ticket (no Zendesk AI / AR on bot replies).
 
-### OAuth callback (optional — custom bot → Zendesk tickets)
-
-After deploy, Zendesk OAuth Redirect URI:
-
-```text
-https://zendesk-chat-ruby.vercel.app/api/zendesk/callback
-```
-
-See `schenley-chat-ui/README.md` and `scripts/zendesk_oauth_exchange.py`.
+OAuth callback: `https://zendesk-chat-ruby.vercel.app/api/zendesk/callback`  
+Details: `schenley-chat-ui/README.md`, `scripts/zendesk_oauth_exchange.py`.

@@ -1,47 +1,39 @@
-# Schenley test chat UI (Zendesk Messaging)
+# Schenley test chat UI (owned chat → Zendesk handoff)
 
-One-page React app that hosts **Zendesk Messaging** for testing the Schenley AI CSR agent. Brand reference: [schenleytech.com](https://schenleytech.com/).
+One-page React app with a **custom chat** (no Zendesk Messaging widget / no AR). Bot replies come from `/api/chat`. **Talk to a human** creates a Zendesk ticket via OAuth (`/api/escalate`).
 
-Full Zendesk setup steps: [../ZENDESK-AI-CSR-SETUP.md](../ZENDESK-AI-CSR-SETUP.md)
+Brand reference: [schenleytech.com](https://schenleytech.com/).
 
 ## Local development
 
 ```bash
 npm install
-cp .env.example .env
-# Set VITE_ZENDESK_WIDGET_KEY from Zendesk Admin → Messaging → Installation
 npm run dev
 ```
 
-Open http://localhost:5173 and click **Start chat**. Conversations appear in Zendesk like any other Messaging ticket.
+Open http://localhost:5173. API routes (`/api/chat`, `/api/escalate`) run on Vercel — for local APIs use `vercel dev` from the **repo root**, or test against the deployed site.
 
-## Vercel deploy
+## Vercel deploy (repo root)
 
-1. Import this repo; set **Root Directory** to `schenley-chat-ui`.
-2. Add environment variable `VITE_ZENDESK_WIDGET_KEY`.
-3. Deploy; add the `*.vercel.app` URL under Zendesk Messaging allowed domains.
+1. Root Directory empty; root `vercel.json` builds this app.
+2. Set server env (not `VITE_`):
+   - `ZENDESK_SUBDOMAIN`
+   - `ZENDESK_OAUTH_CLIENT_ID`
+   - `ZENDESK_OAUTH_CLIENT_SECRET`
+   - `ZENDESK_OAUTH_REFRESH_TOKEN`
+   - `ZENDESK_OAUTH_REDIRECT_URI`
+3. Redeploy after env changes.
 
-## Zendesk OAuth callback (ticket API / handoff)
+## APIs
 
-For a **custom** AI bot that creates Zendesk tickets (not Zendesk AR billing), register this Redirect URI on the OAuth client:
-
-```text
-https://zendesk-chat-ruby.vercel.app/api/zendesk/callback
-```
-
-Handler: `api/zendesk/callback.js` (also mirrored at repo root for empty Root Directory deploys).
-
-1. Deploy so `/api/zendesk/callback` is live.
-2. Admin Center → Apps and integrations → APIs → OAuth clients → add that Redirect URI.
-3. Open the authorize URL as admin → Allow → callback returns `{ "code": "..." }`.
-4. Exchange the code with [`../scripts/zendesk_oauth_exchange.py`](../scripts/zendesk_oauth_exchange.py).
-
-Optional Vercel env (auto-exchange on callback): `ZENDESK_SUBDOMAIN`, `ZENDESK_OAUTH_CLIENT_ID`, `ZENDESK_OAUTH_CLIENT_SECRET`, `ZENDESK_OAUTH_REDIRECT_URI`. Set `ZENDESK_OAUTH_EXPOSE_TOKENS=true` only once to print tokens in the response, then turn it off.
-
-OAuth does **not** replace `VITE_ZENDESK_WIDGET_KEY`. The widget key is still required if you embed Zendesk Messaging.
+| Route | Purpose |
+|--------|---------|
+| `POST /api/chat` | Stub bot reply (replace later with real RAG/LLM) |
+| `POST /api/escalate` | Refresh OAuth token → create Zendesk ticket |
+| `GET /api/zendesk/callback` | OAuth redirect handshake |
 
 ## Notes
 
-- The AI agent and knowledge base are configured in **Zendesk**, not in this codebase.
-- Sample prompts on the page open the messenger; type the same question in the Zendesk panel.
-- For a fully custom in-page transcript (no Zendesk launcher), you would need Sunshine Conversations APIs and server-side auth—out of scope for this test UI.
+- This path avoids Zendesk Automated Resolution billing for bot answers.
+- Zendesk is used only when the customer asks for a human (ticket handoff).
+- Next upgrade: swap the `/api/chat` stub for your RAG/LLM pipeline.

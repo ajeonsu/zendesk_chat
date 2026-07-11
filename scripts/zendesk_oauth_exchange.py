@@ -21,8 +21,8 @@ from __future__ import annotations
 
 import requests
 
-subdomain = "YOUR_SUBDOMAIN"
-client_id = "YOUR_CLIENT_ID"
+subdomain = "touchhire"
+client_id = "website_custom_ai_agent"
 client_secret = "YOUR_CLIENT_SECRET"
 redirect_uri = "https://zendesk-chat-ruby.vercel.app/api/zendesk/callback"
 authorization_code = "AUTH_CODE_FROM_CALLBACK"
